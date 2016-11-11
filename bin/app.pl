@@ -19,12 +19,18 @@ get '/' => sub {
 };
 
 post '/' => sub {
-	my @codes = map { $_ =~ s/\D//gr } grep { $_ } split ',', param('codes');
-	return template 'codes.html', { codes => \@codes };
+	my $codes = [];
+	foreach (grep { $_ } split ',', param('codes')) {
+		my ($k, $v) = map { s/[\s;"']//gr } split '/', $_;
+		my $show = $v ? "$k ($v)" : $k;
+		push @$codes, { key => $k, val => $show };
+	}
+	return template 'codes.html', { codes => $codes };
 };
 
 my $bc = new Barcode::Code128;
 $bc->option('border', 0);
+$bc->option('show_text', 0);
 $bc->option('height', 50);
 $bc->option('font_align', 'center');
 

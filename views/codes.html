@@ -4,12 +4,16 @@
 	<meta charset="UTF-8">
 	<title></title>
 	<style>
-		img {float:left;}
+		figure { float:left; }
+		figcaption { text-align: center; }
 	</style>
 </head>
 <body>
 	<% FOREACH code IN codes %>
-		<img src="/code/<% code %>" alt="<% code %>" />
+	<figure>
+		<img src="/code/<% code.key %>" alt="<% code.key %>" />
+		<figcaption><% code.val %></figcaption>
+	</figure>
 	<% END %>
 </body>
 </html>
