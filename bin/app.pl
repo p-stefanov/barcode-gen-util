@@ -22,11 +22,11 @@ get '/' => sub {
 
 post '/' => sub {
 	my $codes = [];
-	foreach (grep { $_ } split ',', param('codes')) {
+	foreach (grep { $_ } split /[,\s]/, param('codes')) {
 		my ($k, $v) = map { s/[^\\a-zA-Z0-9_-]//gr } split '/', $_;
 		#my $show = $v ? "$k ($v)" : $k;
-		#my $show = $v || $k;
-		my $show = $v || '';
+		my $show = ( $v || $k );#=~ s/\\(r|t|n)//gr;
+		#my $show = $v || '';
 		push @$codes, { key => $k, val => $show };
 	}
 
@@ -35,8 +35,8 @@ post '/' => sub {
 
 my $bc = new Barcode::Code128;
 $bc->option('border', 0);
-#$bc->option('show_text', 0);
-$bc->option('show_text', 1);
+$bc->option('show_text', 0);
+#$bc->option('show_text', 1);
 $bc->option('height', 50);
 $bc->option('font_align', 'center');
 
@@ -44,6 +44,8 @@ get '/code/:code' => sub {
 	content_type 'image/png';
 	# s/\\(r|t|n)/qq{"\\$1"}/geer
 	my $code = ( param('code') =~ s/\\r/\r/gr ) =~ s/\\//gr;
+	#debug $code;
+	#debug $AnyEvent::MODEL; # debugging Twiggy
 	return $bc->png($code);
 };
 
