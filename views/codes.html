@@ -11,7 +11,7 @@
 <body>
 	<% FOREACH code IN codes %>
 	<figure>
-		<img src="/code/<% code.key | url %>" alt="<% code.key | url %>" />
+		<img src="/<% type %>/<% code.key | url %>" alt="<% code.key | url %>" />
 		<figcaption><% code.val | html %></figcaption>
 	</figure>
 	<% END %>

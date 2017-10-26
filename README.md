@@ -5,7 +5,9 @@
 
 ### Twiggy (needs AnyEvent)
 `plackup -s Twiggy -p 3000 -a bin/app.pl`
+
 or this: (needs Server::Starter)
+
 `start_server --port=3000 --pid-file=/tmp/barcode.pid --daemonize --log-file=var/app.log -- plackup -s Twiggy -a bin/app.pl`
 
 ## kill:

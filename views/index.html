@@ -6,6 +6,11 @@
 </head>
 <body>
 	<form action="/" id="usrform" method="POST">
+		<select name="type" form="usrform">
+			<option value="code128" selected>Code128</option>
+			<option value="qr">QR</option>
+		</select>
+		<br />
 		<textarea rows="15" cols="100" name="codes" form="usrform" placeholder="Enter comma or space separated elements or key/value pairs like so: 123,456,567... or 123/text1,456/text2... New line is \r"></textarea>
 		<br>
 		<input type="submit">
